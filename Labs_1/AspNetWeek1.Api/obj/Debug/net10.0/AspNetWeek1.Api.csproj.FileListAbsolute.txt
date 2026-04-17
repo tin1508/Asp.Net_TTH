@@ -43,3 +43,4 @@ D:\asp.net\Labs\Labs_1\AspNetWeek1.Api\obj\Debug\net10.0\compressed\m3c7tgts3v-{
 D:\asp.net\Labs\Labs_1\AspNetWeek1.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\asp.net\Labs\Labs_1\AspNetWeek1.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\asp.net\Labs\Labs_1\AspNetWeek1.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\asp.net\Labs\Labs_1\AspNetWeek1.Api\obj\Debug\net10.0\AspNetWeek1.Api.sourcelink.json
