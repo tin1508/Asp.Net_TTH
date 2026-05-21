@@ -1,3 +1,4 @@
+using AspNetWeek1.Api.Exceptions;
 using AspNetWeek1.Api.Models;
 using AspNetWeek1.Api.Services;
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<OrderService>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
@@ -27,6 +29,7 @@ if(app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthorization();
+app.UseExceptionHandler();
 
 // Minimal API endpoints
 app.MapGet("/", () =>  Results.Ok(new {message = "AspNet Week 1 Mini Stationery Store API is running"}));

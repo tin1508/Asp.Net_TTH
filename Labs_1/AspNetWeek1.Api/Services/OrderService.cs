@@ -24,6 +24,8 @@ public class OrderService
             }
         }
     ];
+
+    //tinh tong tien thanh toan cua moi don hang, ham nay giup tu dong tinh tong tien cho moi don hang
     private void CalculateTotalAmount()
     {
         foreach(var order in _orders)
@@ -31,14 +33,17 @@ public class OrderService
             order.TotalAmount = order.Products.Sum(p => p.Price);
         }
     }
+    //lay tat ca order
     public List<Order> GetAllOrders()
     {
         CalculateTotalAmount();
         return _orders;
     }
+    //lay tong tien bang order id
     public decimal GetTotalAmountByOrderId(int orderId)
     {
         var order = _orders.FirstOrDefault(o => o.Id == orderId) ?? throw new Exception($"Order with ID '{orderId}' not found.");
         return order.TotalAmount;
     }
+    
 }

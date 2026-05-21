@@ -1,3 +1,4 @@
+using AspNetWeek1.Api.Models;
 using AspNetWeek1.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,4 +23,6 @@ public class CategoryController:ControllerBase
         var categories = _categoryService.GetAllCategories();
         return Ok(categories);
     }
+    
+    
 }
