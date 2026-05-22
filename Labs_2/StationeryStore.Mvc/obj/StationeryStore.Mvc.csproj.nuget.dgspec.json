@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj": {}
+    "d:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj": {}
   },
   "projects": {
-    "D:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj": {
+    "d:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj",
+        "projectUniqueName": "d:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj",
         "projectName": "StationeryStore.Mvc",
-        "projectPath": "D:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj",
+        "projectPath": "d:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\StationeryStore.Mvc.csproj",
         "packagesPath": "C:\\Users\\TinDev\\.nuget\\packages\\",
-        "outputPath": "D:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\obj\\",
+        "outputPath": "d:\\asp.net\\Labs\\Labs_2\\StationeryStore.Mvc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\TinDev\\AppData\\Roaming\\NuGet\\NuGet.Config"
