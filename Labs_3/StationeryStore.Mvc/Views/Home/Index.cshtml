@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Stationery Store";
+}
+
+<div class="lab-hero">
+    <h1>Stationery Store</h1>
+
+    <p>
+       Một website MVC cơ bản dùng để giới thiệu các sản phẩm của cửa hàng văn phòng phẩm.
+    </p>
+</div>
+
+<div class="info-panel">
+    <h4>Mục tiêu chính của Stationery Store Website</h4>
+    <p>
+        Quản lý tồn kho, hiển thị danh mục sản phẩm, và cung cấp thông tin chi tiết về từng sản phẩm. Website này sẽ giúp người dùng dễ dàng kiểm kê và quản lý các sản phẩm.
+        <br />
+        Bên cạnh đó, website cũng sẽ cung cấp các tính năng có thể xem các sản phẩm theo danh mục.
+    </p>
+</div>
+
+<h3>Luồng xử lý chính trong MVC</h3>
+
+<ol class="flow-list">
+    <li>1. User gửi request đến URL.</li>
+    <li>2. Controller Action nhận request.</li>
+    <li>3. Controller gọi Service để lấy dữ liệu.</li>
+    <li>4. Service tương tác với Database qua ApplicationDbContext và trả về dữ liệu.</li>
+    <li>5. Controller chuyển dữ liệu sang ViewModel.</li>
+    <li>6. View dùng Razor để render HTML và trả về cho trình duyệt.</li>
+</ol>
+
+<div class="text-center mt-4">
+    <a class="btn btn-primary btn-lg mb-3" href="/Stationeries">
+        Đi đến Stationery Catalog
+    </a>
+    <br>
+    <a class="btn btn-secondary btn-lg" href="/Categories">
+        Đi đến Category Catalog
+    </a>
+</div>
