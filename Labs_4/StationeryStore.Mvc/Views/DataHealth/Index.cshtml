@@ -1,0 +1,57 @@
+@model List<DataHealthViewModel>
+@{
+    ViewData["Title"] = "Data Health";
+}
+
+<div class="page-header" style="margin-top: 1.5rem">
+    <div>
+        <h1 class="page-title">EF Core Data Health</h1>
+        <p class="page-description">Kiểm tra trạng thái hệ thống, cấu hình Database và các thiết lập EF Core.</p>
+    </div>
+</div>
+
+<div class="detail-layout" style="margin-bottom: 2rem; display: block;">
+    <div class="catalog-table-wrap">
+        <table class="catalog-table">
+            <thead>
+                <tr>
+                    <th>Check</th>
+                    <th>Expected</th>
+                    <th>Actual</th>
+                    <th>Status</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="name-cell">@item.Check</td>
+                        <td>@item.Expected</td>
+                        <td>@item.Actual</td>
+                        <td>
+                            @* Using your theme's pill styling. Teal for OK, Amber/Warning for others *@
+                            @if (item.Status?.ToUpper() == "OK")
+                            {
+                                <span class="stock-pill" style="color: #2dd4bf; background-color: rgba(45, 212, 191, 0.1);">
+                                    @item.Status
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="stock-pill detail-warning">
+                                    @item.Status
+                                </span>
+                            }
+                        </td>
+                        <td style="color: #94a3b8;">@item.Note</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 1.5rem;">
+        <a href="/" class="btn-theme-back">Quay lại Dashboard</a>
+    </div>
+</div>

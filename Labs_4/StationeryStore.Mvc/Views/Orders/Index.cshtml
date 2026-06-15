@@ -1,0 +1,72 @@
+@model List<OrderListItemViewModel>
+
+@{
+    ViewData["Title"] = "Order Catalog";
+    var vnZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">
+            <i class="ti ti-receipt page-title-icon" aria-hidden="true"></i>
+            <span>Order Catalog</span>
+        </h2>
+        <p class="page-description">
+            Đây là trang danh sách danh mục sản phẩm của cửa hàng.
+        </p>
+    </div>
+    <div>
+        <a class="btn btn-create"
+        asp-controller="Orders"
+        asp-action="Create">Tạo Mới</a>
+    </div>
+</div>
+
+<div class="info-panel">
+    <i class="ti ti-category info-panel-icon" aria-hidden="true"></i>
+    <div>
+        <span class="info-panel-label">Tổng số đơn hàng</span>
+        <span class="info-panel-value">@Model.Count</span>
+    </div>
+</div>
+
+@if(Model.Count == 0){
+    <div class="empty-state">
+        <i class="ti ti-inbox" aria-hidden="true"></i>
+        <p>Chưa có đơn hàng nào trong hệ thống.</p>
+    </div>
+}
+else{
+    <div class="catalog-table-wrap">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table class="catalog-table">
+                <thead>
+                    <tr>
+                        <th><i class="ti ti-folder" aria-hidden="true"></i>Mã đơn hàng</th>
+                        <th><i class="ti ti-folder" aria-hidden="true"></i>Tên khách hàng</th>
+                        <th><i class="ti ti-folder" aria-hidden="true"></i>Thời gian tạo đơn</th>
+                        <th><i class="ti ti-folder" aria-hidden="true"></i>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (OrderListItemViewModel item in Model)
+                    {
+                        <tr>
+                            <td class="name-cell">@item.Id</td>
+                            <td class="qty-cell count-column">@item.CustomerName</td>
+                            <td class="qty-cell count-column">@TimeZoneInfo.ConvertTimeFromUtc(item.CreatedAt, vnZone).ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="qty-cell count-column">@item.TotalAmount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+<div class="mt-4">
+    <a class="btn btn-theme-back" href="/">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        Quay lại trang chủ
+    </a>
+</div>
