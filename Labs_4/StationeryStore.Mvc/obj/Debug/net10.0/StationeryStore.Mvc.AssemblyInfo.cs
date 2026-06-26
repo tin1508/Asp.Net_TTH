@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StationeryStore.Mvc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afc336935d66725dc7f3701e1ffbf9f20ab4327b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a9045b2210075ff46a754d57c5f571002822d32")]
 [assembly: System.Reflection.AssemblyProductAttribute("StationeryStore.Mvc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StationeryStore.Mvc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
