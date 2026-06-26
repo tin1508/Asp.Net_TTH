@@ -1,0 +1,45 @@
+@model List<AuditLogViewModel>
+@{
+    ViewData["Title"] = "Audit Logs";
+}
+
+<div class="page-header" style="margin-top: 1.5rem">
+    <div>
+        <h1 class="page-title">Audit Logs</h1>
+    </div>
+</div>
+
+<div class="detail-layout" style="margin-bottom: 2rem; display: block;">
+    <div class="catalog-table-wrap">
+        <table class="catalog-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Level</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" style="text-align:center; color:#94a3b8;">
+                            Không có log nào.
+                        </td>
+                    </tr>
+                }
+                @foreach (var log in Model)
+                {
+                    var rowStyle = log.Level == "Warning" ? "color: #f59e0b;"
+                                : log.Level == "Error"   ? "color: #ef4444;"
+                                : "";
+                    <tr style="@rowStyle">
+                        <td>@log.Time</td>
+                        <td>@log.Level</td>
+                        <td>@log.Message</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+@model CategoryCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class='page-header'>
+    <div>
+        <h2 class="page-title">Tạo Danh Mục Văn Phòng Phẩm</h2>
+        <p class="page-description">
+            Form POST dùng asp-for để bind dữ liệu vào CategoryCreateViewModel.
+        </p>
+    </div>
+    <a class="btn btn-theme-back"
+       asp-controller="Categories"
+       asp-action="Index">
+       
+        Quay lại danh sách
+    </a>
+</div>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error-box">
+        <i class="ti ti-alert-circle"></i>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-box">
+        <i class="ti ti-check"></i>
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="form-layout">
+    <form class="form-box"
+          asp-controller="Categories"
+          asp-action="Create"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div asp-validation-summary="All"></div>
+        }
+
+
+        <div class="form-group">
+            <label asp-for="Name">Tên danh mục văn phòng phẩm</label>
+            <input asp-for="Name"
+                   class="form-control"
+                   placeholder="Ví dụ: Blue BallPoint Pen" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <button class="btn" type="submit">
+            Lưu
+        </button>
+
+        <a class="btn btn-secondary"
+           asp-controller="Stationeries"
+           asp-action="Index">
+            Quay lại
+        </a>
+    </form>
+
+    <div class="info-box">
+        <h3>Model Binding từ Form POST</h3>
+
+        <p>
+            Khi bấm Lưu, ASP.NET Core sẽ đọc các input trong form
+            và tự map vào CategoryCreateViewModel.
+        </p>
+
+        <p>
+            Ví dụ input có <strong>asp-for="Name"</strong>
+            thì dữ liệu sẽ được bind vào property <strong>Name</strong>.
+        </p>
+
+        <p>
+            Nếu tên input không khớp với property, action có thể nhận null hoặc giá trị mặc định.
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
