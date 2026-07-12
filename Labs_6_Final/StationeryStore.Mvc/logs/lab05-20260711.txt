@@ -1,0 +1,16 @@
+2026-07-11 09:03:02.732 +07:00 [WRN] Entity 'Stationery' has a global query filter defined and is the required end of a relationship with the entity 'CartItem'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-11 09:03:05.803 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-07-11 22:39:35.796 +07:00 [ERR] An error occurred using the connection to database 'stationeries_store' on server 'tcp://localhost:5432'.
+2026-07-11 22:39:36.178 +07:00 [ERR] Failed executing DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE stationeries_store;
+2026-07-11 22:41:28.538 +07:00 [ERR] Failed executing DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-11 22:44:17.706 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-07-11 23:28:10.468 +07:00 [INF] Seeded admin user: admin@stationerystore.com
+2026-07-11 23:30:21.620 +07:00 [ERR] Failed to seed admin user: Passwords must be at least 8 characters., Passwords must have at least one non alphanumeric character., Passwords must have at least one digit ('0'-'9')., Passwords must have at least one uppercase ('A'-'Z').
+2026-07-11 23:30:54.637 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-07-11 23:35:43.868 +07:00 [INF] Seeded admin user: admin@gmail.com
+2026-07-11 23:35:53.881 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-07-11 23:58:02.646 +07:00 [INF] Seeded admin user: admin@gmail.com

@@ -1,0 +1,112 @@
+﻿@using Microsoft.EntityFrameworkCore.Update.Internal
+@model DashBoardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-header" style="margin-top: 1.5rem">
+    <div>
+        <h1 class="page-title">Stationery Store Dashboard</h1>
+        <p class="page-description">Quản lý tồn kho, danh mục và đơn hàng văn phòng phẩm.</p>
+    </div>
+</div>
+
+<div class="stat-grid-dashboard">
+    <div class="stat-card">
+        <div class="stat-icon purple">📦</div>
+        <div class="stat-number">@Model.TotalStationeries</div>
+        <div class="stat-label">Tổng sản phẩm</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon teal">🏷</div>
+        <div class="stat-number">@Model.TotalCategories</div>
+        <div class="stat-label">Danh mục</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon blue">🛒</div>
+        <div class="stat-number">@Model.TotalOrders</div>
+        <div class="stat-label">Đơn hàng</div>
+    </div>
+    <div class="stat-card stat-warning">
+        <div class="stat-icon amber">⚠</div>
+        <div class="stat-number">@Model.NeedReorderCount</div>
+        <div class="stat-label">Sắp hết hàng</div>
+    </div>
+    <div class="stat-card stat-danger">   @* ✅ card mới *@
+        <div class="stat-icon red">🚫</div>
+        <div class="stat-number">@Model.OutOfStockCount</div>
+        <div class="stat-label">Hết hàng</div>
+    </div>
+    <div class="stat-card stat-safe">
+        <div class="stat-icon teal">✓</div>
+        <div class="stat-number">@Model.InStockPercent%</div>
+        <div class="stat-label">Còn hàng</div>
+    </div>
+</div>
+
+<div class="detail-layout" style="margin-bottom: 2rem">
+    <div>
+        <div class="catalog-table-wrap">
+            <table class="catalog-table">
+                <thead>
+                    <tr>
+                        <th>Danh mục</th>
+                        <th class="count-column">Số sản phẩm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <tr>
+                            <td class="name-cell">@cat.Name</td>
+                            <td class="count-column cat-cell">@cat.StationeryCount sản phẩm</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap">
+            <a href="/Stationeries" class="btn btn-primary">Quản lý sản phẩm</a>
+            <a href="/Categories" class="btn btn-secondary">Quản lý danh mục</a>
+            <a href="/Orders" class="btn-theme-back">Xem đơn hàng</a>
+        </div>
+    </div>
+
+    <div class="detail-side">
+        <div class="side-card detail-warning">
+            <div class="side-card-icon">⚠</div>
+            <h4>Sắp hết hàng (@Model.NeedReorderCount)</h4>
+            @if (!Model.LowStockItems.Any())
+            {
+                <p style="color:#64748b; font-size:13px">Không có sản phẩm nào</p>
+            }
+            @foreach (var item in Model.LowStockItems)
+            {
+                @if(item.StockStatus == "detail-warning"){
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1e1e2e; font-size:13px">
+                        <span>@item.Name</span>
+                        <span class="stock-pill detail-warning">Còn @item.Quantity</span> @* ✅ luôn hiện số *@
+                    </div>
+                }
+            }
+        </div>
+        <div class="side-card detail-danger">
+            <div class="side-card-icon">🚫</div>
+            <h4>Hết hàng (@Model.OutOfStockCount)</h4>
+            @if (!Model.LowStockItems.Any())
+            {
+                <p style="color:#64748b; font-size:13px">Không có sản phẩm nào</p>
+            }
+            @foreach (var item in Model.LowStockItems)
+            {
+                @if(item.StockStatus == "detail-danger"){
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1e1e2e; font-size:13px">
+                        <span>@item.Name</span>
+                        <span class="stock-pill detail-danger">Hết hàng</span> @* ✅ luôn hiện "Hết hàng" *@
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    
+</div>

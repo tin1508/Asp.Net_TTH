@@ -1,0 +1,1 @@
+2026-07-08 00:00:19.306 +07:00 [WRN] Failed to determine the https port for redirect.

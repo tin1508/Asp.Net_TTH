@@ -1,0 +1,120 @@
+@model CartViewModel
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">
+            <i class="ti ti-shopping-cart page-title-icon" aria-hidden="true"></i>
+            <span>Giỏ hàng của bạn</span>
+        </h2>
+        <p class="page-description">Xem lại sản phẩm trước khi tiến hành thanh toán.</p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-box">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="info-panel">
+    <i class="ti ti-package info-panel-icon" aria-hidden="true"></i>
+    <div>
+        <span class="info-panel-label">Tổng số sản phẩm</span>
+        <span class="info-panel-value">@Model.Items.Count</span>
+    </div>
+</div>
+
+@if (Model.Items.Count == 0)
+{
+    <div class="empty-state">
+        <i class="ti ti-shopping-cart-off" aria-hidden="true"></i>
+        <p>Giỏ hàng của bạn đang trống.</p>
+    </div>
+    <div class="mt-4">
+        <a class="btn btn-theme-back" href="/Stationeries">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i>
+            Quay lại trang chủ
+        </a>
+    </div>
+}
+else
+{
+    <div class="catalog-table-wrap">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table class="catalog-table">
+                <thead>
+                    <tr>
+                        <th><i class="ti ti-pencil" aria-hidden="true"></i> Sản phẩm</th>
+                        <th class="count-column"><i class="ti ti-currency-dong" aria-hidden="true"></i> Đơn giá</th>
+                        <th class="count-column"><i class="ti ti-hash" aria-hidden="true"></i> Số lượng</th>
+                        <th class="count-column"><i class="ti ti-sum" aria-hidden="true"></i> Thành tiền</th>
+                        <th><i class="ti ti-trash" aria-hidden="true"></i> Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td class="name-cell">@item.StationeryName</td>
+                        <td class="qty-cell count-column">@item.UnitPriceSnapshot.ToString("N0")đ</td>
+                        <td class="count-column">
+                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="d-inline-flex align-items-center gap-2">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1"
+                                       class="form-control form-control-sm" style="width: 70px;" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary" title="Cập nhật số lượng">
+                                    <i class="ti ti-refresh"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td class="qty-cell count-column">@item.Subtotal.ToString("N0")đ</td>
+                        <td class="action-cell">
+                            <form asp-controller="Cart" asp-action="Remove" method="post"
+                                  onsubmit="return confirm('Xóa sản phẩm này khỏi giỏ hàng?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                <button type="submit" class="btn-detail" title="Xóa khỏi giỏ hàng">
+                                    <i class="ti ti-trash" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="info-panel mt-3">
+        <i class="ti ti-receipt-2 info-panel-icon" aria-hidden="true"></i>
+        <div>
+            <span class="info-panel-label">Tổng cộng</span>
+            <span class="info-panel-value">@Model.Total.ToString("N0")đ</span>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <form asp-controller="Cart" asp-action="Checkout" method="post"
+              onsubmit="return confirm('Xác nhận đặt hàng?');">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-create">
+                <i class="ti ti-credit-card" aria-hidden="true"></i>
+                Tiến hành thanh toán
+            </button>
+        </form>
+
+        <a class="btn btn-theme-back" asp-controller="Stationeries" asp-action="Index">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i>
+            Tiếp tục mua sắm
+        </a>
+    </div>
+}

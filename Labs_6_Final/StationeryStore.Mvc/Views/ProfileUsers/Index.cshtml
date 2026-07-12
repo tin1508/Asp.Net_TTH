@@ -1,0 +1,143 @@
+@model ProfilePageViewModel
+@{
+    ViewData["Title"] = "Hồ sơ";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">
+            <i class="ti ti-user-circle page-title-icon" aria-hidden="true"></i>
+            <span>Hồ sơ của tôi</span>
+        </h2>
+        <p class="page-description">
+            Thông tin tài khoản và lịch sử hoạt động của bạn.
+        </p>
+    </div>
+    <div>
+        <a class="btn btn-search" asp-controller="ProfileUsers" asp-action="Edit">
+            <i class="ti ti-pencil" aria-hidden="true"></i>
+            Chỉnh sửa
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-box">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="info-panel">
+    <i class="ti ti-shield-check info-panel-icon" aria-hidden="true"></i>
+    <div>
+        <span class="info-panel-label">Vai trò</span>
+        <span class="info-panel-value">@(Model.IsAdmin ? "Quản trị viên" : "Khách hàng")</span>
+    </div>
+</div>
+
+<div class="catalog-table-wrap">
+    <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table class="catalog-table">
+            <tbody>
+                <tr>
+                    <td class="name-cell"><i class="ti ti-user" aria-hidden="true"></i> Họ tên</td>
+                    <td>@Model.Profile.FullName</td>
+                </tr>
+                <tr>
+                    <td class="name-cell"><i class="ti ti-mail" aria-hidden="true"></i> Email</td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td class="name-cell"><i class="ti ti-map-pin" aria-hidden="true"></i> Địa chỉ giao hàng mặc định</td>
+                    <td>@(string.IsNullOrEmpty(Model.Profile.DefaultShippingAddress) ? "Chưa cập nhật" : Model.Profile.DefaultShippingAddress)</td>
+                </tr>
+                <tr>
+                    <td class="name-cell"><i class="ti ti-cake" aria-hidden="true"></i> Ngày sinh</td>
+                    <td>@(Model.Profile.DateOfBirth?.ToString("dd/MM/yyyy") ?? "Chưa cập nhật")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (!Model.IsAdmin)
+{
+    <div class="page-header mt-4">
+        <div>
+            <h2 class="page-title">
+                <i class="ti ti-history page-title-icon" aria-hidden="true"></i>
+                <span>Lịch sử mua hàng</span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <i class="ti ti-receipt-2 info-panel-icon" aria-hidden="true"></i>
+        <div>
+            <span class="info-panel-label">Tổng số đơn hàng</span>
+            <span class="info-panel-value">@Model.OrderHistory.Count</span>
+        </div>
+    </div>
+
+    @if (Model.OrderHistory.Count == 0)
+    {
+        <div class="empty-state">
+            <i class="ti ti-inbox" aria-hidden="true"></i>
+            <p>Bạn chưa có đơn hàng nào.</p>
+        </div>
+    }
+    else
+    {
+        <div class="catalog-table-wrap">
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                <table class="catalog-table">
+                    <thead>
+                        <tr>
+                            <th><i class="ti ti-hash" aria-hidden="true"></i> Mã đơn</th>
+                            <th><i class="ti ti-calendar" aria-hidden="true"></i> Ngày đặt</th>
+                            <th class="count-column"><i class="ti ti-currency-dong" aria-hidden="true"></i> Tổng tiền</th>
+                            <th><i class="ti ti-status-change" aria-hidden="true"></i> Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var order in Model.OrderHistory)
+                    {
+                        <tr>
+                            <td class="name-cell">#@order.Id.Substring(0, 8)</td>
+                            <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="qty-cell count-column">@order.TotalAmount.ToString("N0")đ</td>
+                            <td>
+                                @if (order.Status == "Cancelled")
+                                {
+                                    <span class="status-badge status-cancelled">Đã hủy</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-paid">Đã thanh toán</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
+
+<div class="mt-4 d-flex gap-2">
+    <a class="btn btn-theme-back" href="/Stationeries">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        Quay lại trang chủ
+    </a>
+
+    <form asp-controller="Authentication" asp-action="Logout" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">
+            <i class="ti ti-logout"></i> Đăng xuất
+        </button>
+    </form>
+</div>
